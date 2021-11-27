@@ -41,13 +41,13 @@ public class ProductRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             productService.remove(id);
-            return new ResponseEntity<>("Xóa thành công!", HttpStatus.OK);
+            return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
         }
     }
 
